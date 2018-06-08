@@ -156,6 +156,7 @@ class Notification():
         self.data = {}
         self.small_icon = None
         self.large_icon = None
+        self.chrome_icon = None
         self.ios_badge_type = self.IOS_BADGE_TYPE_NONE
         self.ios_badge_count = 0
 
@@ -186,7 +187,7 @@ class Notification():
             'contents': self.contents,
             'content_available': self.content_available
         }
-        
+
         # Mode related settings
         if self.mode == self.DEVICES_MODE:
             payload.update({'include_player_ids': self.include_player_ids})
@@ -212,6 +213,9 @@ class Notification():
 
         if self.large_icon:
             payload.update({'large_icon': self.large_icon})
+
+        if self.chrome_icon:
+            payload.update({'chrome_icon': self.chrome_icon})
 
         if self.ios_badge_count > 0:
             payload.update({
