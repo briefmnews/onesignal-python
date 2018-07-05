@@ -139,12 +139,30 @@ class Notification():
     def ios_badge_count(self, value):
         self._ios_badge_count = int(value)
 
+    @property
+    def ttl(self):
+        return self._ttl
+
+    @ttl.setter
+    def ttl(self, value):
+        if not isinstance(value, int):
+            raise TypeError('Value must be an int.')
+        if value < 0:
+            raise ValueError('Value must be a non-negative number.')
+        if value > 2419200:
+            raise ValueError(
+                'Value cannot be greater than 2419200 seconds (28 days).')
+
+        self._ttl = value
+
     def __init__(self, app_id, mode=SEGMENTS_MODE):
         self.app_id = app_id
         self.mode = mode
 
         # Device defaults
         self._include_player_ids = []
+
+        self._ttl = None
 
         # Common defaults
         self.contents = {'en': 'Default message.'}
@@ -222,5 +240,8 @@ class Notification():
                 'ios_badgeType': self.ios_badge_type,
                 'ios_badgeCount': self.ios_badge_count
             })
+
+        if self.ttl:
+            payload.update({'ttl': self.ttl})
 
         return payload
