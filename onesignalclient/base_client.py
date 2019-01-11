@@ -3,7 +3,7 @@ import requests
 import json
 
 
-class OneSignalBaseClient():
+class OneSignalBaseClient(object):
     """OneSignal Base Client."""
     MODE_APP = 'app'
     MODE_USER = 'user'

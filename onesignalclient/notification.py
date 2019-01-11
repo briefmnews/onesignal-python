@@ -2,7 +2,7 @@
 import json
 
 
-class Notification():
+class Notification(object):
     """Notification class."""
     SEGMENTS_MODE = 'segments'
     DEVICES_MODE = 'devices'
