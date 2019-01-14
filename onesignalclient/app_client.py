@@ -54,6 +54,24 @@ class OneSignalAppClient(OneSignalBaseClient):
         )
         return self.delete(self._url(endpoint))
 
+    def view_devices(self, limit=300, offset=0):
+        endpoint = \
+            '{endpoint}?app_id={app_id}&limit={limit}&offset={offset}'.format(
+                endpoint=self.ENDPOINTS['devices'],
+                app_id=self.app_id,
+                limit=limit,
+                offset=offset
+            )
+        yield self.get(self._url(endpoint))
+
+    def view_device(self, device_id):
+        endpoint = \
+            '{endpoint}/{device_id}'.format(
+                endpoint=self.ENDPOINTS['devices'],
+                device_id=device_id
+            )
+        return self.get(self._url(endpoint))
+
     def csv_export(self, extra_fields=[]):
         """
         Request a CSV export from OneSignal.
