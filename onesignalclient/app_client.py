@@ -6,8 +6,8 @@ class OneSignalAppClient(OneSignalBaseClient):
     """OneSignal Client."""
     ENDPOINTS = {
         'notifications': 'notifications',
-        'cancel_notification': 'notifications/%s?app_id=%s',
-        'csv_export': 'players/csv_export?app_id=%s'
+        'devices': 'players',
+        'csv_export': 'players/csv_export'
     }
 
     AVAILABLE_EXTRA_FIELDS = ['location', 'country', 'rooted']
@@ -47,8 +47,11 @@ class OneSignalAppClient(OneSignalBaseClient):
         Cancel a notification.
         :param notification_id: Notification identifier
         """
-        endpoint = self.ENDPOINTS['cancel_notification'] % (notification_id,
-                                                            self.app_id)
+        endpoint = '{endpoint}/{nid}?app_id={app_id}'.format(
+            endpoint=self.ENDPOINTS['notifications'],
+            nid=notification_id,
+            app_id=self.app_id
+        )
         return self.delete(self._url(endpoint))
 
     def csv_export(self, extra_fields=[]):
@@ -63,5 +66,8 @@ class OneSignalAppClient(OneSignalBaseClient):
                 x for x in extra_fields if x in self.AVAILABLE_EXTRA_FIELDS
             ]
 
-        endpoint = self.ENDPOINTS['csv_export'] % (self.app_id)
+        endpoint = '{endpoint}?app_id={app_id}'.format(
+            endpoint = self.ENDPOINTS['csv_export'],
+            app_id=self.app_id
+        )
         return self.post(self._url(endpoint), payload=payload)
