@@ -4,6 +4,7 @@ from .base_client import OneSignalBaseClient
 
 class OneSignalUserClient(OneSignalBaseClient):
     """OneSignal Client."""
+
     def __init__(self, auth_key):
         """
         Initializes the OneSignal Client.
@@ -23,12 +24,12 @@ class OneSignalUserClient(OneSignalBaseClient):
         return self._get_headers()
 
     def view_apps(self):
-        return self.get(self._url('apps'))
+        return self.get(self._url("apps"))
 
     def view_app(self, app_id):
-        endpoint = 'apps/%s' % (app_id)
+        endpoint = "apps/%s" % (app_id)
         return self.get(self._url(endpoint))
 
     def view_device(self, player_id, app_id):
-        endpoint = 'players/%s?%s' % (player_id, app_id)
+        endpoint = "players/%s?%s" % (player_id, app_id)
         return self.get(self._url(endpoint))

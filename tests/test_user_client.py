@@ -11,9 +11,9 @@ class TestUserClient(BaseTest):
 
     def test_get_headers(self, user_client):
         headers = user_client.get_headers()
-        assert 'Content-Type' in headers
-        assert 'Authorization' in headers
-        assert user_client.auth_key in headers['Authorization']
+        assert "Content-Type" in headers
+        assert "Authorization" in headers
+        assert user_client.auth_key in headers["Authorization"]
 
     def test_view_apps(self, user_client):
         apps = user_client.view_apps()
@@ -25,7 +25,7 @@ class TestUserClient(BaseTest):
 
     def test_view_app(self, user_client, app_id):
         app = user_client.view_app(app_id)
-        assert app.get('id', False)
+        assert app.get("id", False)
 
     def test_view_app_not_found(self, user_client, app_id):
         with pytest.raises(HTTPError):
@@ -33,7 +33,7 @@ class TestUserClient(BaseTest):
 
     def test_view_device(self, user_client, player_id_1, app_id):
         device = user_client.view_device(player_id_1, app_id)
-        assert device.get('identifier', False)
+        assert device.get("identifier", False)
 
     def test_view_device_not_found(self, user_client, player_id_1, app_id):
         with pytest.raises(HTTPError):

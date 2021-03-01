@@ -5,8 +5,9 @@ import json
 
 class OneSignalBaseClient(object):
     """OneSignal Base Client."""
-    MODE_APP = 'app'
-    MODE_USER = 'user'
+
+    MODE_APP = "app"
+    MODE_USER = "user"
 
     def _url(self, endpoint):
         """
@@ -15,7 +16,7 @@ class OneSignalBaseClient(object):
         :return: Returns the complete url string
         :rtype: str
         """
-        return 'https://onesignal.com/api/v1/%s' % endpoint
+        return "https://onesignal.com/api/v1/%s" % endpoint
 
     def _get_headers(self, custom_headers={}):
         """
@@ -30,7 +31,7 @@ class OneSignalBaseClient(object):
 
         headers = {
             "Content-Type": "application/json; charset=utf-8",
-            "Authorization": auth
+            "Authorization": auth,
         }
         headers.update(custom_headers)
         return headers

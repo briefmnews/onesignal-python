@@ -4,13 +4,14 @@ from .base_client import OneSignalBaseClient
 
 class OneSignalAppClient(OneSignalBaseClient):
     """OneSignal Client."""
+
     ENDPOINTS = {
-        'notifications': 'notifications',
-        'devices': 'players',
-        'csv_export': 'players/csv_export'
+        "notifications": "notifications",
+        "devices": "players",
+        "csv_export": "players/csv_export",
     }
 
-    AVAILABLE_EXTRA_FIELDS = ['location', 'country', 'rooted']
+    AVAILABLE_EXTRA_FIELDS = ["location", "country", "rooted"]
 
     def __init__(self, app_id, app_api_key):
         """
@@ -39,37 +40,33 @@ class OneSignalAppClient(OneSignalBaseClient):
         Creates a new notification.
         :param payload: the payload of the notification to create
         """
-        return self.post(self._url(self.ENDPOINTS['notifications']),
-                         payload=payload)
+        return self.post(self._url(self.ENDPOINTS["notifications"]), payload=payload)
 
     def cancel_notification(self, notification_id):
         """
         Cancel a notification.
         :param notification_id: Notification identifier
         """
-        endpoint = '{endpoint}/{nid}?app_id={app_id}'.format(
-            endpoint=self.ENDPOINTS['notifications'],
+        endpoint = "{endpoint}/{nid}?app_id={app_id}".format(
+            endpoint=self.ENDPOINTS["notifications"],
             nid=notification_id,
-            app_id=self.app_id
+            app_id=self.app_id,
         )
         return self.delete(self._url(endpoint))
 
     def view_devices(self, limit=300, offset=0):
-        endpoint = \
-            '{endpoint}?app_id={app_id}&limit={limit}&offset={offset}'.format(
-                endpoint=self.ENDPOINTS['devices'],
-                app_id=self.app_id,
-                limit=limit,
-                offset=offset
-            )
+        endpoint = "{endpoint}?app_id={app_id}&limit={limit}&offset={offset}".format(
+            endpoint=self.ENDPOINTS["devices"],
+            app_id=self.app_id,
+            limit=limit,
+            offset=offset,
+        )
         yield self.get(self._url(endpoint))
 
     def view_device(self, device_id):
-        endpoint = \
-            '{endpoint}/{device_id}'.format(
-                endpoint=self.ENDPOINTS['devices'],
-                device_id=device_id
-            )
+        endpoint = "{endpoint}/{device_id}".format(
+            endpoint=self.ENDPOINTS["devices"], device_id=device_id
+        )
         return self.get(self._url(endpoint))
 
     def csv_export(self, extra_fields=[]):
@@ -77,15 +74,14 @@ class OneSignalAppClient(OneSignalBaseClient):
         Request a CSV export from OneSignal.
         :return: Returns the request result.
         """
-        payload = {'extra_fields': []}
+        payload = {"extra_fields": []}
 
         if isinstance(extra_fields, list) and len(extra_fields) > 0:
-            payload['extra_fields'] = [
+            payload["extra_fields"] = [
                 x for x in extra_fields if x in self.AVAILABLE_EXTRA_FIELDS
             ]
 
-        endpoint = '{endpoint}?app_id={app_id}'.format(
-            endpoint = self.ENDPOINTS['csv_export'],
-            app_id=self.app_id
+        endpoint = "{endpoint}?app_id={app_id}".format(
+            endpoint=self.ENDPOINTS["csv_export"], app_id=self.app_id
         )
         return self.post(self._url(endpoint), payload=payload)
