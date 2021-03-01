@@ -8,3 +8,6 @@ clean:
 .PHONY: run_tests
 run_tests:clean
 	py.test --pep8 --cov=. --cov-report=term-missing --cov-config=.coveragerc -r a -v -s
+
+install:
+	pip install -r requirements-test.txt
