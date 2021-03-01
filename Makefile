@@ -11,3 +11,6 @@ run_tests:clean
 
 install:
 	pip install -r requirements-test.txt
+
+report:
+	pytest --cov=onesignalclient --cov-report=html tests
