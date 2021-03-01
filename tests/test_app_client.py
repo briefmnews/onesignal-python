@@ -17,11 +17,6 @@ class TestAppClient(BaseTest):
         assert 'Authorization' in headers
         assert app_client.app_api_key in headers['Authorization']
 
-    def test_create_notification(self, app_client, device_notification):
-        result = app_client.create_notification(device_notification)
-        assert result.get('id', False)
-        assert result.get('recipients', False)
-
     def test_cancel_notification(self, app_client, notification_id):
         result = app_client.cancel_notification(notification_id)
         assert result.get('success', False)
