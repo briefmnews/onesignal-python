@@ -85,3 +85,13 @@ class OneSignalAppClient(OneSignalBaseClient):
             endpoint=self.ENDPOINTS["csv_export"], app_id=self.app_id
         )
         return self.post(self._url(endpoint), payload=payload)
+
+    def edit_device(self, device_id, payload):
+        """
+        Update an existing device in one of your OneSignal apps
+        :param payload: the payload of the device to edit
+
+        https://documentation.onesignal.com/reference/edit-device
+        """
+        endpoint = "{endpoint}/{device_id}".format(endpoint=self.ENDPOINTS['devices'], device_id=device_id)
+        return self.put(self._url(endpoint), payload=payload)

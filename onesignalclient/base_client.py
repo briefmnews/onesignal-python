@@ -66,6 +66,23 @@ class OneSignalBaseClient(object):
         request.raise_for_status()
         return request.json()
 
+    def put(self, url, payload={}, headers={}):
+        """
+        Perform a PUT request.
+
+        :param url: URL to send the request.
+        :param payload: dict to be sent as request body/data.
+        :param headers: dict with headers to be used in the request.
+        :return: Returns json response
+        :rtype: dict or list
+        :raises requests.exceptions.HTTPError: if status code is not 2xx
+        """
+        json_payload = json.dumps(payload)
+        final_headers = self._get_headers(custom_headers=headers)
+        request = requests.put(url, data=json_payload, headers=final_headers)
+        request.raise_for_status()
+        return request.json()
+
     def delete(self, url, headers={}):
         """
         Perform a DELETE request.
