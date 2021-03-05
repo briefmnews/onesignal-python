@@ -1,7 +1,8 @@
 # onesignal-python
 Python client for OneSignal push notification service
 
-[![Build Status](https://travis-ci.org/joaobarbosa/onesignal-python.png?branch=master)](https://travis-ci.org/joaobarbosa/onesignal-python)
+[![Python CI](https://github.com/briefmnews/onesignal-python/actions/workflows/workflow.yml/badge.svg)](https://github.com/briefmnews/onesignal-python/actions/workflows/workflow.yml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## Installing
 
