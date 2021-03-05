@@ -93,5 +93,7 @@ class OneSignalAppClient(OneSignalBaseClient):
 
         https://documentation.onesignal.com/reference/edit-device
         """
-        endpoint = "{endpoint}/{device_id}".format(endpoint=self.ENDPOINTS['devices'], device_id=device_id)
+        endpoint = "{endpoint}/{device_id}".format(
+            endpoint=self.ENDPOINTS["devices"], device_id=device_id
+        )
         return self.put(self._url(endpoint), payload=payload)
