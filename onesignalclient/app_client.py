@@ -97,3 +97,17 @@ class OneSignalAppClient(OneSignalBaseClient):
             endpoint=self.ENDPOINTS["devices"], device_id=device_id
         )
         return self.put(self._url(endpoint), payload=payload)
+
+    def delete_user_record(self, player_id):
+        """
+        Delete a user record
+        Used to delete a single, specific Player ID record from a specific OneSignal app.
+
+        https://documentation.onesignal.com/reference/delete-user-record
+        """
+        endpoint = "{endpoint}/{player_id}?app_id={onesignal_app_id}".format(
+            endpoint=self.ENDPOINTS["devices"],
+            player_id=player_id,
+            onesignal_app_id=self.app_id,
+        )
+        return self.delete(self._url(endpoint))
