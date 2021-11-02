@@ -9,6 +9,7 @@ class OneSignalAppClient(OneSignalBaseClient):
         "notifications": "notifications",
         "devices": "players",
         "csv_export": "players/csv_export",
+        "apps": "apps",
     }
 
     AVAILABLE_EXTRA_FIELDS = ["location", "country", "rooted"]
@@ -97,6 +98,20 @@ class OneSignalAppClient(OneSignalBaseClient):
             endpoint=self.ENDPOINTS["devices"], device_id=device_id
         )
         return self.put(self._url(endpoint), payload=payload)
+
+    def edit_tags_with_external_user_id(self, external_user_id, tags):
+        """
+        Update an existing device in one of your OneSignal apps
+        :param payload: the payload of the device to edit
+
+        https://documentation.onesignal.com/reference/edit-device
+        """
+        endpoint = "{endpoint}/{app_id}/users/{external_user_id}".format(
+            endpoint=self.ENDPOINTS["apps"],
+            app_id=self.app_id,
+            external_user_id=external_user_id,
+        )
+        return self.put(self._url(endpoint), payload=tags)
 
     def delete_user_record(self, player_id):
         """
