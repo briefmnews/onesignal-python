@@ -8,7 +8,7 @@ base_url = "https://onesignal.com/api/v1"
 
 
 class BaseTest:
-    default_uri = re.compile("%s/(\w+)" % (base_url))
+    default_uri = re.compile(r"%s/(\w+)" % (base_url))
     requests_mock = {
         "test_view_apps": {
             "uri": "%s/apps" % (base_url),
@@ -19,19 +19,19 @@ class BaseTest:
             "status": codes.bad_request,
         },
         "test_view_app": {
-            "uri": re.compile("%s/apps/(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/apps/(\w|\-)+" % (base_url)),
             "body": '{"id": "92911750-242d-4260-9e00-9d9034f139ce"}',
         },
         "test_view_app_not_found": {
-            "uri": re.compile("%s/apps/(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/apps/(\w|\-)+" % (base_url)),
             "status": codes.not_found,
         },
         "test_view_device": {
-            "uri": re.compile("%s/players/(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/players/(\w|\-)+" % (base_url)),
             "body": '{"identifier": "ce777617da7f548fe7a9ab6febb56cf39fba6d2"}',
         },
         "test_view_device_not_found": {
-            "uri": re.compile("%s/players/(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/players/(\w|\-)+" % (base_url)),
             "status": codes.not_found,
         },
         "test_create_notification": {
@@ -42,7 +42,7 @@ class BaseTest:
         "test_cancel_notification": {
             "method": responses.DELETE,
             "uri": re.compile(
-                "%s/notifications/(\w|\-)+\?app_id=(\w|\-)+" % (base_url)
+                r"%s/notifications/(\w|\-)+\?app_id=(\w|\-)+" % (base_url)
             ),
             "body": '{"success": "true"}',
         },
@@ -50,20 +50,20 @@ class BaseTest:
             "method": responses.DELETE,
             "status": codes.bad_request,
             "uri": re.compile(
-                "%s/notifications/(\w|\-)+\?app_id=(\w|\-)+" % (base_url)
+                r"%s/notifications/(\w|\-)+\?app_id=(\w|\-)+" % (base_url)
             ),
             "body": '{"errors": ["..."]}',
         },
         "test_csv_export": {
             "method": responses.POST,
-            "uri": re.compile("%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
             "body": '{"csv_file_url": "https://onesignal.com/csv_exports/b2f7f'
             "966-d8cc-11e4-bed1-df8f05be55ba/users_184948440ec0e334728"
             'e87228011ff41_2015-11-10.csv.gz"}',
         },
         "test_csv_export_with_extra_fields": {
             "method": responses.POST,
-            "uri": re.compile("%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
             "body": '{"csv_file_url": "https://onesignal.com/csv_exports/b2f7f'
             "966-d8cc-11e4-bed1-df8f05be55ba/users_184948440ec0e334728"
             'e87228011ff41_2015-11-10.csv.gz"}',
@@ -71,7 +71,7 @@ class BaseTest:
         "test_csv_export_not_found": {
             "method": responses.POST,
             "status": codes.not_found,
-            "uri": re.compile("%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
+            "uri": re.compile(r"%s/players/csv_export\?app_id=(\w|\-)+" % (base_url)),
         },
     }
 
